@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <title>首页</title>
+    <script src="/Http/Content/jquery-1.7.1.min.js"></script>
+
+    <script type="text/javascript">
+        function viewClient() {
+            var clientIp = $('#ipAddress').val();
+            if (clientIp) {
+                location.href = '/client?ip=' + clientIp;
+            } else {
+                location.href = '/client';
+            }
+        };
+    </script>
+
+    <style>
+        li {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h3>使用教程</h3>
+    <ol>
+        <li>
+            <span>给手机wifi网络设置自动代理：http://@(Model.ProxyIpEndpoint)/proxy.pac</span>
+        </li>
+        <li>
+            <span>在手机访问此页面，</span> <a href="/cert/client.cer">点击下载安装证书</a><span>到手机端</span>
+        </li>
+        <li>
+            <span>进入头脑王者小程序开战，正确的选项卡会打√</span>
+        </li>
+    </ol>
+
+    <h3>客户端开发</h3>
+    <ol>
+        <li>
+            <span>使用websocket客户端连接到ws://@(Model.WsIpEndpoint)</span>
+        </li>
+        <li>
+            <span>准备答题时服务端会推送分析结果的Json给websocket客户端</span>
+        </li>
+        <li>
+            <span>游戏完成时服务端会推送结束事件Json给websocket客户端</span>
+        </li>
+    </ol>
+
+    <h3>服务器管理</h3>
+    <ol>
+        <li>
+            <span>客户端列表</span>
+            <select id="ipAddress">
+                @foreach (var ip in Model.ClientsIp)
+                {
+                    <option>@ip</option>
+                }
+            </select>
+            <a href="javascript:void(0)" onclick="viewClient();">监控</a>
+        </li>
+
+        <li>
+            <a href="/data/export">导出历史题目</a>
+        </li>
+
+        <li>
+            <form enctype="multipart/form-data" method="post" action="/data/import">
+                <input name="file" type="file" />
+                <button type="submit">导入题目资料</button>
+            </form>
+        </li>
+    </ol>
+</body>
+</html>
