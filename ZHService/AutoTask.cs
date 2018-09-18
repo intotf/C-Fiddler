@@ -25,8 +25,13 @@ namespace ZHService
         /// <param name="uid"></param>
         public static async void Run(string uid)
         {
+            if (string.IsNullOrEmpty(uid))
+            {
+                return;
+            }
             await GetSchoolListByAsycn(uid);
             await DoTaskAsync(uid);
+            Console.WriteLine("执行完成,请选择下一个要执行的用户.");
         }
 
 

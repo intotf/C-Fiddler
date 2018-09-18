@@ -74,7 +74,8 @@ namespace ZHService
                 {
                     value = new string(buffer, index, count - Environment.NewLine.Length);
                 }
-                System.Diagnostics.Debugger.Log(0, null, value);
+                WsNoticeApi.OnLog(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") +"  "+ value);
+                //System.Diagnostics.Debugger.Log(0, null, value);
             }
         }
     }

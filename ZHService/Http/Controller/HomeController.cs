@@ -35,6 +35,7 @@ namespace ZHService.Http.Controller
         [HttpPost]
         public JsonResult Run(string id)
         {
+            WsNoticeApi.OnLog("任务开始运行.");
             AutoTask.Run(id);
             return Json(new { state = true, value = "任务开始运行." });
         }

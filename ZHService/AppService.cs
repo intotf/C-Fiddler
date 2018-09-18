@@ -17,7 +17,7 @@ namespace ZHService
         /// <summary>
         /// 监听服务
         /// </summary>
-        private TcpListener listener = new TcpListener();
+        public static TcpListener listener = new TcpListener();
 
         /// <summary>
         /// 服务端口
@@ -31,15 +31,18 @@ namespace ZHService
         /// <returns></returns>
         public bool Start(HostControl hostControl)
         {
-            this.listener.Use<HttpMiddleware>();
-            this.listener.Use<JsonWebSocketMiddleware>();
+            var httpMiddleware = listener.Use<HttpMiddleware>();
+            listener.Use<JsonWebSocketMiddleware>();
+            httpMiddleware.MIMECollection.Add(".woff", ".woff");
+            httpMiddleware.MIMECollection.Add(".woff2", ".woff2");
+            httpMiddleware.MIMECollection.Add(".ttf", ".ttf");
 
             var ower = TcpSnapshot.Snapshot().FirstOrDefault(item => item.Port == this.Port);
             if (ower != null)
             {
                 ower.Kill();
             }
-            this.listener.Start(this.Port);
+            listener.Start(this.Port);
             return true;
         }
 
@@ -50,7 +53,7 @@ namespace ZHService
         /// <returns></returns>
         public bool Stop(HostControl hostControl)
         {
-            this.listener.Dispose();
+            listener.Dispose();
             return true;
         }
     }

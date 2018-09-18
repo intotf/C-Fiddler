@@ -70,6 +70,7 @@
     <Compile Include="AutoTask.cs" />
     <Compile Include="Debugger.cs" />
     <Compile Include="Http\Controller\HomeController.cs" />
+    <Compile Include="Http\Controller\WsNoticeApi.cs" />
     <Compile Include="ISchoolsTask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,9 +102,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Http\Skin\bootstrap.min.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Http\Skin\common.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -215,7 +213,7 @@
     <Content Include="Http\Skin\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Http\Skin\websocket\tcReader.js" />
+    <Content Include="Http\Skin\websocket\webNotice.js" />
     <Content Include="Http\Skin\websocket\webSocket.js" />
     <Content Include="Http\Skin\websocket\webSocket.swf" />
     <Content Include="userids.txt">
@@ -224,4 +222,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)Http\*"  "$(TargetDir)Http" /S /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
