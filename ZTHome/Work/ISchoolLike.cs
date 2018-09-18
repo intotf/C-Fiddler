@@ -32,13 +32,13 @@ namespace ZTHome.Work
         [HttpPost("/commentserver/content/like/v1")]
         ITask<ResultRest<ResultLike>> DoSchoolsLikeByAsync([JsonContent]RequestLike data);
 
-        /// <summary>
-        /// 获取文章信息
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        [HttpPost("/infofeed/userrecommend/v1.1")]
-        ITask<ResultRest<ResultInfo>> GetInfoListByAsync([JsonContent]RequestInfo data);
+        ///// <summary>
+        ///// 获取文章信息
+        ///// </summary>
+        ///// <param name="data"></param>
+        ///// <returns></returns>
+        //[HttpPost("/infofeed/userrecommend/v1.1")]
+        //ITask<ResultRest<ResultInfo>> GetInfoListByAsync([JsonContent]RequestInfo data);
 
 
         /// <summary>
