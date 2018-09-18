@@ -88,7 +88,9 @@
     <Compile Include="WebsocketMiddleware.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Cert\client.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

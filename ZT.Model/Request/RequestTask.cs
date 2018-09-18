@@ -11,6 +11,18 @@ namespace ZT.Model
     /// </summary>
     public class RequestTask
     {
+        /// <summary>
+        /// 构造消息发送
+        /// </summary>
+        /// <param name="taskType"></param>
+        public RequestTask(TaskType taskType, string uid)
+        {
+            var userInfo = new User_info(uid);
+            this.schoolId = userInfo.schoolid;
+            this.userId = userInfo.uid;
+            this.actionType = taskType.GetHashCode();
+            this.taskNumber = taskType.GetFieldDescription();
+        }
 
         /// <summary>
         /// 操作类型
@@ -31,7 +43,7 @@ namespace ZT.Model
         /// <summary>
         /// 学校id
         /// </summary>
-        public string schoolId { get; set; } = RequstBase.user_Info.schoolid;
+        public string schoolId { get; set; }
         /// <summary>
         /// 学生id
         /// </summary>
@@ -43,16 +55,6 @@ namespace ZT.Model
         /// <summary>
         /// 
         /// </summary>
-        public string userId { get; set; } = RequstBase.user_Info.uid;
-
-        /// <summary>
-        /// 构造消息发送
-        /// </summary>
-        /// <param name="taskType"></param>
-        public RequestTask(TaskType taskType)
-        {
-            this.actionType = taskType.GetHashCode();
-            this.taskNumber = taskType.GetFieldDescription();
-        }
+        public string userId { get; set; }
     }
 }

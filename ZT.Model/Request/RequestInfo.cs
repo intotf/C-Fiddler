@@ -10,22 +10,18 @@ namespace ZT.Model
     /// 获取文章
     /// 请求实体,每请求一次会自动刷新一次
     /// </summary>
-    public class RequestInfo : IRequest
+    public class RequestInfo
     {
-        /// <summary>
-        /// 提交地址
-        /// </summary>
-        private static string PostUrl = "http://api.szy.cn/infofeed/userrecommend/v1.1";
 
         /// <summary>
         /// 默认请求内容
         /// </summary>
-        private static AdParams adparams = new AdParams();
+        //private static AdParams adparams = new AdParams();
 
         /// <summary>
         /// 请求Body
         /// </summary>
-        public AdParams adParams { get; set; } = adparams;
+        public AdParams adParams { get; set; }
         /// <summary>
         /// 通道标识
         /// </summary>
@@ -46,14 +42,5 @@ namespace ZT.Model
         /// 用户Id
         /// </summary>
         public string userId { get; set; } = adparams.user_info.uid;
-
-        /// <summary>
-        /// 获取提交Url
-        /// </summary>
-        /// <returns></returns>
-        public string GetUrl()
-        {
-            return PostUrl;
-        }
     }
 }

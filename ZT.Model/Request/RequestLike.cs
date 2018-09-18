@@ -9,12 +9,16 @@ namespace ZT.Model
     /// <summary>
     /// 点赞提交对象
     /// </summary>
-    public class RequestLike : IRequest
+    public class RequestLike
     {
         /// <summary>
-        /// 提交url
+        /// 初始化用户信息
         /// </summary>
-        private static string PostUrl = "http://api.szy.cn/commentserver/content/like/v1";
+        /// <param name="uid"></param>
+        public RequestLike(string uid)
+        {
+            this.userId = uid;
+        }
 
         /// <summary>
         /// 子类Id
@@ -43,11 +47,11 @@ namespace ZT.Model
         /// <summary>
         /// 用户id
         /// </summary>
-        public string userId { get; set; } = RequstBase.user_Info.uid;
+        public string userId { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
-        public string userName { get; set; } = "涛涛爸爸";
+        public string userName { get; set; } = "涛涛";
         /// <summary>
         /// 用户头像地址
         /// </summary>
@@ -56,14 +60,5 @@ namespace ZT.Model
         /// 微信名称
         /// </summary>
         public string wxName { get; set; }
-
-        /// <summary>
-        /// 获取提交地址
-        /// </summary>
-        /// <returns></returns>
-        public string GetUrl()
-        {
-            return PostUrl;
-        }
     }
 }

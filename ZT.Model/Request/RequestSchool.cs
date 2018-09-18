@@ -9,17 +9,26 @@ namespace ZT.Model
     /// <summary>
     /// 刷新消息新鲜事
     /// </summary>
-    public class RequestSchool : IRequest
+    public class RequestSchool
     {
+
         /// <summary>
-        /// 提交Url
+        /// 初始化用户信息
         /// </summary>
-        private static string PostUrl = "http://api.szy.cn/schoolfeed/downrefresh/v2.0";
+        /// <param name="uid"></param>
+        public RequestSchool(string uid)
+        {
+            var userInfo = new User_info(uid);
+            this.schoolId = userInfo.schoolid;
+            this.userId = userInfo.uid;
+            this.adParams = new AdParams(uid);
+        }
 
         /// <summary>
         /// 请求附属参数
         /// </summary>
-        public AdParams adParams { get; set; } = new AdParams();
+        public AdParams adParams { get; set; }
+
         /// <summary>
         /// 班级id
         /// </summary>
@@ -39,7 +48,7 @@ namespace ZT.Model
         /// <summary>
         /// 学校id
         /// </summary>
-        public string schoolId { get; set; } = RequstBase.user_Info.schoolid;
+        public string schoolId { get; set; }
         /// <summary>
         /// 学校类型
         /// </summary>
@@ -51,19 +60,11 @@ namespace ZT.Model
         /// <summary>
         /// 用户id
         /// </summary>
-        public string userId { get; set; } = RequstBase.user_Info.uid;
+        public string userId { get; set; }
         /// <summary>
         /// 行政编码
         /// </summary>
         public string zipCode { get; set; } = RequstBase.geo.city.ToString();
 
-        /// <summary>
-        /// 获取提交 Url
-        /// </summary>
-        /// <returns></returns>
-        public string GetUrl()
-        {
-            return PostUrl;
-        }
     }
 }

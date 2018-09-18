@@ -68,7 +68,7 @@ namespace ZT.Proxy
             // 配置代理服务器
             Cert.SetRootCertificate();
             CONFIG.IgnoreServerCertErrors = true;
-            CONFIG
+
 
             FiddlerApplication.Prefs.SetBoolPref("fiddler.network.streaming.abortifclientaborts", true);
             FiddlerApplication.Startup(AppConfig.ProxyPort, FiddlerCoreStartupFlags.AllowRemoteClients | FiddlerCoreStartupFlags.DecryptSSL);

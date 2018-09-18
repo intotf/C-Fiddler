@@ -24,13 +24,18 @@ namespace ZT.Model
         /// <summary>
         /// 初始化当前用户信息
         /// </summary>
-        public static User_info user_Info = new User_info();
+        public static User_info user_Info(string uid)
+        {
+            return new User_info(uid);
+        }
 
         /// <summary>
         /// 初始化请求附属参数
         /// </summary>
-        public static AdParams adParams = new AdParams();
-
+        public static AdParams adParams(string uid)
+        {
+            return new AdParams(uid);
+        }
         /// <summary>
         /// 学生Id
         /// </summary>
@@ -152,6 +157,13 @@ namespace ZT.Model
     /// </summary>
     public class User_info
     {
+        public User_info(string id)
+        {
+            this.uid = id;
+        }
+
+        public static string _schoolid = "AvbRjTcLwKbe1DjLkxv";
+
         /// <summary>
         /// 行政代码
         /// </summary>
@@ -168,11 +180,12 @@ namespace ZT.Model
         /// <summary>
         /// 学校ID
         /// </summary>
-        public string schoolid { get; set; } = "AvbRjTcLwKbe1DjLkxv";
+        public string schoolid { get; set; } = _schoolid;
         /// <summary>
         /// 用户ID
         /// </summary>
-        public string uid { get; set; } = "4504728af77317934441";
+        public string uid { get; set; }
+
         /// <summary>
         /// 未知
         /// 默认：2012
@@ -185,6 +198,11 @@ namespace ZT.Model
     /// </summary>
     public class AdParams
     {
+        public AdParams(string uid)
+        {
+            this.user_info = new User_info(uid);
+
+        }
         /// <summary>
         /// 设备信息
         /// </summary>
