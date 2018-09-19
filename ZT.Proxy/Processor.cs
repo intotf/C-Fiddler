@@ -57,6 +57,10 @@ namespace ZT.Proxy
         {
             session.utilDecodeResponse();
             var url = session.fullUrl;
+            if (url.Equals("http://core-ztjy.szy.cn/user/myself", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine(session.GetResponseBodyAsString());
+            }
             Console.WriteLine(url);
 
 

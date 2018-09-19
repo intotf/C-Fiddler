@@ -66,7 +66,5 @@ namespace ZT.Proxy
                 File.WriteAllText(Cert.RootCert_Key, keyString, Encoding.ASCII);
             }
         }
-
-
     }
 }

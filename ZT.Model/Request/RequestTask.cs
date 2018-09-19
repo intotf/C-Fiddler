@@ -53,7 +53,7 @@ namespace ZT.Model
         /// </summary>
         public string taskNumber { get; set; }
         /// <summary>
-        /// 
+        /// 用户id
         /// </summary>
         public string userId { get; set; }
     }

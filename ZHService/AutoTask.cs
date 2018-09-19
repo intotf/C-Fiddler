@@ -18,19 +18,19 @@ namespace ZHService
         /// </summary>
         private static ISchoolsTask client = HttpApiClient.Create<ISchoolsTask>();
 
-
         /// <summary>
         /// 根据Id 自动完成任务
         /// </summary>
         /// <param name="uid"></param>
-        public static async void Run(string uid)
+        public static async Task Run(string uid)
         {
             if (string.IsNullOrEmpty(uid))
             {
                 return;
             }
-            await GetSchoolListByAsycn(uid);
-            await DoTaskAsync(uid);
+            var user = UserApi.Users.Where(item => item.Id == uid).FirstOrDefault();
+            await GetSchoolListByAsycn(user);
+            await DoTaskAsync(user);
             Console.WriteLine("执行完成,请选择下一个要执行的用户.");
         }
 
@@ -40,9 +40,9 @@ namespace ZHService
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
-        async static Task GetSchoolListByAsycn(string uid)
+        async static Task GetSchoolListByAsycn(User user)
         {
-            var requestSchool = new RequestSchool(uid);
+            var requestSchool = new RequestSchool(user.Id);
             var schoolList = await client.GetSchoolListByAsync(requestSchool).HandleAsDefaultWhenException(r =>
             {
                 Console.WriteLine(r.Message);
@@ -50,17 +50,17 @@ namespace ZHService
 
             foreach (var item in schoolList.body.feeds.Take(5))
             {
-                var likeData = new RequestLike(uid);
+                var likeData = new RequestLike(user.Id);
                 likeData.contentId = item.contentId;
                 likeData.contentUserId = item.userId;
                 likeData.studentId = item.studentId;
                 likeData.like = 1;
                 var likeResult = await client.DoSchoolsLikeByAsync(likeData);
-                Console.WriteLine("{2} 点赞：{0},当前赞数：{1}", likeResult.message, likeResult.body.count, uid);
+                Console.WriteLine("{2} 点赞：{0},当前赞数：{1}", likeResult.message, likeResult.body.count, user.NickName);
                 await Task.Delay(2000);
                 likeData.like = 0;
                 var noLikeResult = await client.DoSchoolsLikeByAsync(likeData);
-                Console.WriteLine("{2} 取消点赞：{0},当前赞数：{1}", likeResult.message, likeResult.body.count, uid);
+                Console.WriteLine("{2} 取消点赞：{0},当前赞数：{1}", likeResult.message, likeResult.body.count, user.NickName);
                 await Task.Delay(2000);
             }
         }
@@ -70,21 +70,19 @@ namespace ZHService
         /// 完成阅读文章及亲友聊天任务
         /// </summary>
         /// <returns></returns>
-        async static Task DoTaskAsync(string uid)
+        async static Task DoTaskAsync(User user)
         {
             var tasks = default(TaskType).GetFieldValues<TaskType>();
             var result = new ResultRest<ResultTask>();
             foreach (var t in tasks)
             {
-                //完成文章阅读
-                var data = new RequestTask(t, uid);
                 if (t == TaskType.Info)
                 {
-                    await DoTaskByTypeAsync(t, uid, 5);
+                    await DoTaskByTypeAsync(t, user, 5);
                 }
                 else
                 {
-                    await DoTaskByTypeAsync(t, uid);
+                    await DoTaskByTypeAsync(t, user);
                 }
             }
         }
@@ -95,20 +93,20 @@ namespace ZHService
         /// <param name="type"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        async static Task DoTaskByTypeAsync(TaskType type, string uid, int count = 1)
+        async static Task DoTaskByTypeAsync(TaskType type, User user, int count = 1)
         {
             //完成指定类型任务
-            var data = new RequestTask(type, uid);
+            var data = new RequestTask(type, user.Id);
             for (var i = 0; i < count; i++)
             {
                 var result = await client.DoTaskByAsync(data);
                 if (result.code != 10000)
                 {
-                    Console.WriteLine("{2} {0} {1}", DateTime.Now, result, uid);
+                    Console.WriteLine("{0} {1}", user.NickName, result);
                 }
                 else
                 {
-                    Console.WriteLine("{2} {0} {1}", DateTime.Now, result.body.task.description, uid);
+                    Console.WriteLine("{0} {1}", user.NickName, result.body.task.description);
                 }
                 await Task.Delay(2000);
             }

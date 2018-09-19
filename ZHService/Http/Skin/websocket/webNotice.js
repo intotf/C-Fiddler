@@ -13,13 +13,23 @@
         }
     }
 
-    // 身份证读取时触发
+    // 日志接收
     this.onLog = function (callBack) {
         ws.bindApi("OnLog", callBack);
     }
 
-    // 打开摄像头
+    //刷新用户
+    this.loadUsers = function (callBack) {
+        ws.bindApi("LoadUsers", callBack)
+    }
+
+    // 添加用户
     this.addUser = function (userId, callBack) {
         ws.invokeApi("AddUser", [userId], callBack);
+    }
+
+    //运行任务
+    this.runTask = function (userIds, callBack) {
+        ws.invokeApi("Run", [userIds], callBack)
     }
 };

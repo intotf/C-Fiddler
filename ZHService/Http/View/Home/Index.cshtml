@@ -2,15 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>layui</title>
+    <title>掌通校园自动任务</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="/Http/Skin/layui/css/layui.css" rel="stylesheet" />
-    <script src="/Http/Skin/layui/layui.all.js"></script>
+    <link href="/Http/Skin/layui/formSelects-v4.css" rel="stylesheet" />
     <script src="/Http/Skin/jquery-1.7.1.min.js"></script>
-    <script src="~/Http/Skin/websocket/webSocket.js"></script>
-    <script src="~/Http/Skin/websocket/webNotice.js"></script>
+    <script src="/Http/Skin/websocket/webSocket.js"></script>
+    <script src="/Http/Skin/websocket/webNotice.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -21,66 +21,83 @@
             $("#Logser").append(log + "\n");
             var scrollTop = $("#Logser")[0].scrollHeight;
             $("#Logser").scrollTop(scrollTop);
-
         });
 
-        function addUser() {
-            var us
+        WsNotice.loadUsers(function (da) {
+            LoadUsers();
+        })
 
-        }
-
+        //执行任务
         function Run() {
-            $.post("/Run", { id: $("#UserId").val() }, function (da) {
-
+            var formSelects = layui.formSelects;
+            var userids = formSelects.value('userid', 'valStr');
+            WsNotice.runTask(userids, function (da) {
             });
         }
 
+        //添加用户
         function AddUser() {
-            layer.prompt({ title: '请输入用户Id', formType: 3 }, function (text, index) {
+            layer.prompt({ title: '请输入用户Id | 昵称', formType: 3 }, function (text, index) {
                 layer.close(index);
-                WsNotice.addUser(text, function (da) {
-                    if (da) {
-                        $("#UserId").append("<option value=" + text + ">" + text + "</option>");
+                WsNotice.addUser(text, function (state) {
+                    if (state) {
+                        LoadUsers();
+                    } else {
+                        layui.alert("添加失败,请注意添加格式");
                     }
-                });
+                })
+
             });
         }
-    </script>
 
-    <style>
-        li {
-            padding: 5px 10px;
+        function LoadUsers() {
+            console.log("刷新用户列表");
+            $("#UserId").empty();
+            var formSelects = layui.formSelects;
+            //server模式
+            formSelects.data('userid', 'server', {
+                url: '/LoadUsers'
+            });
+
+            //formSelects.value('userid', [1, 2], true);
+            //$.post("/LoadUsers", null, function (da) {
+            //    $.each(da, function (i, u) {
+
+            //    })
+            //});
         }
-    </style>
+
+        $(function () {
+            LoadUsers()
+        })
+    </script>
 </head>
 <body>
     <div class="layui-container">
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>掌通校园自动任务</legend>
-        </fieldset>
-        <div class="layui-row">
-            <div class="layui-col-xs12">
-                <select id="UserId" name="UserId" class="layui-input" lay-verify="required">
-                    <option value="">请选择用户</option>
-                    @foreach (var id in Model)
-                    {
-                        <option value="@id">@id</option>
-                    }
-                </select>
+        <div class="layui-form">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>掌通校园自动任务</legend>
+            </fieldset>
+            <div class="layui-row layui-col-space5">
+                <div class="layui-col-xs12 layui-col-sm4 layui-col-md4">
+                    <select id="UserId" name="UserId" class="layui-input" lay-verify="required" xm-select="userid">
+                        <option value="">请选择用户</option>
+                    </select>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                    <button class="layui-btn" onclick="Run()">做任务</button>
+                    <button class="layui-btn layui-btn-normal" onclick="AddUser()">添加用户</button>
+                </div>
             </div>
-        </div>
-        <div class="layui-row layui-col-space5">
-            <div class="layui-col-xs12">
-                <button class="layui-btn" onclick="Run()">做任务</button>
-                <button class="layui-btn layui-btn-normal" onclick="AddUser()">添加用户</button>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>日志</legend>
+            </fieldset>
+            <div class="layui-row">
+                <textarea rows="10" id="Logser" class="layui-textarea"></textarea>
             </div>
-        </div>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>日志</legend>
-        </fieldset>
-        <div class="layui-row">
-            <textarea rows="10" id="Logser" class="layui-textarea"></textarea>
         </div>
     </div>
+    <script src="/Http/Skin/layui/layui.all.js"></script>
+    <script src="/Http/Skin/layui/formSelects-v4.min.js"></script>
 </body>
 </html>

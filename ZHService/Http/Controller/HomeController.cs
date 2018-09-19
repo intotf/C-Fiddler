@@ -22,22 +22,32 @@ namespace ZHService.Http.Controller
         [Route("/")]
         public ActionResult Index()
         {
-            var userId = UserList.UserIds;
-            return this.View("Index", userId);
+            return View("Index");
         }
 
         /// <summary>
-        /// 执行用户任务
+        /// 加载用户列表
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
-        [Route("/Run")]
-        [HttpPost]
-        public JsonResult Run(string id)
+        [Route("/LoadUsers")]
+        public JsonResult LoadUsers()
         {
-            WsNoticeApi.OnLog("任务开始运行.");
-            AutoTask.Run(id);
-            return Json(new { state = true, value = "任务开始运行." });
+            var users = UserApi.Users.Select(item => new { name = item.NickName, value = item.Id }).ToArray();
+            return Json(users);
+        }
+
+
+        /// <summary>
+        /// 返回视图
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        private ActionResult View(string name)
+        {
+            var controller = this.CurrentContext.Action.ControllerName;
+            var cshtml = System.IO.File.ReadAllText($"Http\\View\\{controller}\\{name}.cshtml", System.Text.Encoding.UTF8);
+            return Content(cshtml);
         }
 
         /// <summary>

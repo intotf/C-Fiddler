@@ -19,7 +19,7 @@ namespace ZHService
         {
             get
             {
-                return AppService.listener.SessionManager.FilterWrappers<JsonWebSocketSession>().ToArray();
+                return Listener.WsListener.SessionManager.FilterWrappers<JsonWebSocketSession>().ToArray();
             }
         }
 
@@ -29,7 +29,6 @@ namespace ZHService
         /// <returns></returns>
         public static void OnLog(string log)
         {
-
             foreach (var ws in OtherSessions)
             {
                 try
@@ -48,14 +47,48 @@ namespace ZHService
         [Api]
         public bool AddUser(string userId)
         {
+            var user = User.StrToUser(userId);
+            if (user == null)
+            {
+                return false;
+            }
             try
             {
-                UserList.AddUser(userId);
+                UserApi.AddOUpdateUser(user);
                 return true;
             }
             catch
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// 刷新用户
+        /// </summary>
+        public static void LoadUsers()
+        {
+            foreach (var ws in OtherSessions)
+            {
+                try
+                {
+                    ws.InvokeApi("LoadUsers", true);
+                }
+                catch (Exception) { }
+            }
+        }
+
+        /// <summary>
+        /// 执行任务
+        /// </summary>
+        /// <param name="userIds"></param>
+        [Api]
+        public async void Run(string userIds)
+        {
+            var userArr = userIds.Split(',');
+            foreach (var u in userArr)
+            {
+                await AutoTask.Run(u);
             }
         }
 

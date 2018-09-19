@@ -56,6 +56,7 @@
     <Compile Include="Result\ResultLike.cs" />
     <Compile Include="Result\ResultSchool.cs" />
     <Compile Include="Result\ResultTask.cs" />
+    <Compile Include="Result\ResultUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZT.Common\ZT.Common.csproj">
