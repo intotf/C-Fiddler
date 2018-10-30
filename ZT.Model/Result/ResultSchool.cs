@@ -248,7 +248,8 @@ namespace ZT.Model
         public int contentType { get; set; }
         /// <summary>
         /// 点赞信息
+        /// 20181030 存在特殊字符
         /// </summary>
-        public CommentInfo commentInfo { get; set; }
+        //public CommentInfo commentInfo { get; set; }
     }
 }

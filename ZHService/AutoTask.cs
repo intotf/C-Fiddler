@@ -43,10 +43,7 @@ namespace ZHService
         async static Task GetSchoolListByAsycn(User user)
         {
             var requestSchool = new RequestSchool(user.Id);
-            var schoolList = await client.GetSchoolListByAsync(requestSchool).HandleAsDefaultWhenException(r =>
-            {
-                Console.WriteLine(r.Message);
-            });
+            var schoolList = await client.GetSchoolListByAsync(requestSchool);
 
             foreach (var item in schoolList.body.feeds.Take(5))
             {
