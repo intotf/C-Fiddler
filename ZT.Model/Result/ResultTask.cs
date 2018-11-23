@@ -25,7 +25,7 @@ namespace ZT.Model
         /// <summary>
         /// 消息id
         /// </summary>
-        public int id { get; set; }
+        ///public int id { get; set; }
         /// <summary>
         /// 标题
         /// </summary>
@@ -41,31 +41,31 @@ namespace ZT.Model
         /// <summary>
         /// 任务类型
         /// </summary>
-        public int taskType { get; set; }
+        ///public int taskType { get; set; }
         /// <summary>
         /// 任务编号
         /// </summary>
         public string taskNumber { get; set; }
-        /// <summary>
-        /// 任务数量
-        /// </summary>
-        public int taskCount { get; set; }
-        /// <summary>
-        /// 是否Tip
-        /// </summary>
-        public int showTip { get; set; }
-        /// <summary>
-        /// 完成任务数
-        /// </summary>
-        public int completeTaskCount { get; set; }
-        /// <summary>
-        /// 状态
-        /// </summary>
-        public int status { get; set; }
-        /// <summary>
-        /// 连接任务数
-        /// </summary>
-        public int continuityTaskCount { get; set; }
+        ///// <summary>
+        ///// 任务数量
+        ///// </summary>
+        //public int taskCount { get; set; }
+        ///// <summary>
+        ///// 是否Tip
+        ///// </summary>
+        //public int showTip { get; set; }
+        ///// <summary>
+        ///// 完成任务数
+        ///// </summary>
+        //public int completeTaskCount { get; set; }
+        ///// <summary>
+        ///// 状态
+        ///// </summary>
+        //public int status { get; set; }
+        ///// <summary>
+        ///// 连接任务数
+        ///// </summary>
+        //public int continuityTaskCount { get; set; }
         /// <summary>
         /// 积分奖励
         /// </summary>
@@ -93,14 +93,14 @@ namespace ZT.Model
         /// 图片
         /// </summary>
         public string image { get; set; }
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public int type { get; set; }
-        /// <summary>
-        /// 奖励类型
-        /// </summary>
-        public int rewardType { get; set; }
+        ///// <summary>
+        ///// 类型
+        ///// </summary>
+        //public int type { get; set; }
+        ///// <summary>
+        ///// 奖励类型
+        ///// </summary>
+        //public int rewardType { get; set; }
         /// <summary>
         /// 奖励积分
         /// </summary>
@@ -108,6 +108,6 @@ namespace ZT.Model
         /// <summary>
         /// 是否生效
         /// </summary>
-        public int isTaken { get; set; }
+        //public int isTaken { get; set; }
     }
 }
