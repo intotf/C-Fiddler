@@ -45,7 +45,7 @@ namespace ZHService
             var requestSchool = new RequestSchool(user.Id);
             var schoolList = await client.GetSchoolListByAsync(requestSchool);
 
-            foreach (var item in schoolList.body.feeds.Take(5))
+            foreach (var item in schoolList.body.feeds.Where(item => item.studentId != "" && item.userId != "").Take(5))
             {
                 var likeData = new RequestLike(user.Id);
                 likeData.contentId = item.contentId;

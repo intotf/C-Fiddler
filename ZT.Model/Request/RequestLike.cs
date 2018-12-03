@@ -59,6 +59,6 @@ namespace ZT.Model
         /// <summary>
         /// 微信名称
         /// </summary>
-        public string wxName { get; set; }
+        public string wxName { get; set; } = "";
     }
 }
