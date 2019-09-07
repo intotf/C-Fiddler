@@ -62,10 +62,10 @@ namespace ZHService
                 var likeResult = await client.DoSchoolsLikeByAsync(likeData);
                 Console.WriteLine("{3} 的 {2} 点赞：{0},当前赞数：{1}", likeResult.message, likeResult.body.count, user.NickName, student.StudentName);
                 await Task.Delay(2000);
-                likeData.like = 0;
-                var noLikeResult = await client.DoSchoolsLikeByAsync(likeData);
-                Console.WriteLine("{3} 的 {2} 取消点赞：{0},当前赞数：{1}", likeResult.message, likeResult.body.count, user.NickName, student.StudentName);
-                await Task.Delay(2000);
+                //likeData.like = 0;
+                //var noLikeResult = await client.DoSchoolsLikeByAsync(likeData);
+                //Console.WriteLine("{3} 的 {2} 取消点赞：{0},当前赞数：{1}", likeResult.message, likeResult.body.count, user.NickName, student.StudentName);
+                //await Task.Delay(2000);
             }
         }
 

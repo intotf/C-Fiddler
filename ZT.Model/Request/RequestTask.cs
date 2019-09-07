@@ -37,7 +37,7 @@ namespace ZT.Model
         /// <summary>
         /// 子类Id
         /// </summary>
-        public string childId { get; set; } = "7e2ed4c0da316059c7c9";
+        public string childId { get; set; } = "1bdaea4b62a0cd49ce87";
         /// <summary>
         /// 分类id
         /// </summary>
