@@ -15,13 +15,15 @@ namespace ZT.Model
         /// 构造消息发送
         /// </summary>
         /// <param name="taskType"></param>
-        public RequestTask(TaskType taskType, string uid)
+        public RequestTask(TaskType taskType, string uid, Students student)
         {
             var userInfo = new User_info(uid);
             this.schoolId = userInfo.schoolid;
             this.userId = userInfo.uid;
             this.actionType = taskType.GetHashCode();
             this.taskNumber = taskType.GetFieldDescription();
+            this.classId = student.ClassId;
+            this.studentId = student.StudentId;
         }
 
         /// <summary>
@@ -39,7 +41,7 @@ namespace ZT.Model
         /// <summary>
         /// 分类id
         /// </summary>
-        public string classId { get; set; } = RequstBase.classId;
+        public string classId { get; set; }
         /// <summary>
         /// 学校id
         /// </summary>
@@ -47,7 +49,7 @@ namespace ZT.Model
         /// <summary>
         /// 学生id
         /// </summary>
-        public string studentId { get; set; } = RequstBase.studentId;
+        public string studentId { get; set; }
         /// <summary>
         /// 任务编码
         /// </summary>

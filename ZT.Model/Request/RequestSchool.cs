@@ -16,12 +16,14 @@ namespace ZT.Model
         /// 初始化用户信息
         /// </summary>
         /// <param name="uid"></param>
-        public RequestSchool(string uid)
+        public RequestSchool(string uid, string classId, string studentId)
         {
             var userInfo = new User_info(uid);
             this.schoolId = userInfo.schoolid;
             this.userId = userInfo.uid;
             this.adParams = new AdParams(uid);
+            this.classId = classId;
+            this.studentId = studentId;
         }
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace ZT.Model
         /// <summary>
         /// 班级id
         /// </summary>
-        public string classId { get; set; } = RequstBase.classId;
+        public string classId { get; set; }
         /// <summary>
         /// 提要Id
         /// </summary>
@@ -56,7 +58,7 @@ namespace ZT.Model
         /// <summary>
         /// 学生id
         /// </summary>
-        public string studentId { get; set; } = RequstBase.studentId;
+        public string studentId { get; set; }
         /// <summary>
         /// 用户id
         /// </summary>
