@@ -14,6 +14,7 @@ namespace ZHService
     /// </summary>
     [HttpHost("http://api.szy.cn")]
     [RequestFilterAttribute]
+    [TraceFilter(OutputTarget = OutputTarget.Console)]
     public interface ISchoolsTask : IHttpApi
     {
         /// <summary>

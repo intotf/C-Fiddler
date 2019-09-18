@@ -11,7 +11,6 @@ namespace ZT.Model
     /// </summary>
     public class RequestSchool
     {
-
         /// <summary>
         /// 初始化用户信息
         /// </summary>

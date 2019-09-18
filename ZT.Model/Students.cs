@@ -33,15 +33,20 @@ namespace ZT.Model
         public string StudentName { get; set; }
 
         /// <summary>
+        /// 孩子Id
+        /// </summary>
+        public string childId { get; set; }
+
+        /// <summary>
         /// 字符串转 User 实体
         /// </summary>
         /// <param name="userStr"></param>
         public static Students StrToUser(string studentStr)
         {
             var arr = studentStr.Split('|');
-            if (arr.Length == 4)
+            if (arr.Length == 5)
             {
-                return new Students { StudentId = arr[0], ClassId = arr[1], ClassName = arr[2], StudentName = arr[3] };
+                return new Students { StudentId = arr[0], ClassId = arr[1], ClassName = arr[2], StudentName = arr[3], childId = arr[4] };
             }
             return default(Students);
         }

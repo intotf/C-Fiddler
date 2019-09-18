@@ -20,7 +20,7 @@ namespace ZHService
         /// <returns></returns>
         public override async Task OnBeginRequestAsync(ApiActionContext context)
         {
-            var req = await context.RequestMessage.ToStringAsync();
+            //var req = await context.RequestMessage.ToStringAsync();
             //Console.WriteLine(req);
             await base.OnBeginRequestAsync(context);
         }

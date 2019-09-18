@@ -12,6 +12,7 @@ using System.Configuration;
 using Fiddler;
 using System.Globalization;
 using ZHService.Proxy;
+using System.Threading;
 
 namespace ZHService
 {
@@ -55,44 +56,44 @@ namespace ZHService
 
             Listener.WsListener.Start(this.Port);
 
+            new TimerRun(ConfigurationManager.AppSettings["AutoTime"]);
+            //#region 代理服务
+            //// 请求前
+            //FiddlerApplication.BeforeRequest += (session) =>
+            //{
+            //    //Console.WriteLine($"{session.clientIP}-> {session.fullUrl}");
+            //    session.bBufferResponse = true;
 
-            #region 代理服务
-            // 请求前
-            FiddlerApplication.BeforeRequest += (session) =>
-            {
-                //Console.WriteLine($"{session.clientIP}-> {session.fullUrl}");
-                session.bBufferResponse = true;
+            //    // 首页重定向
+            //    var uri = new Uri(session.fullUrl);
+            //    if (uri.Port == ProxyPort || uri.Port == Port)
+            //    {
+            //        session.host = $"{uri.Host}:{ Port }";
+            //        AllSessions.Add(session);
+            //    }
+            //    //Console.WriteLine(session.url);
+            //};
 
-                // 首页重定向
-                var uri = new Uri(session.fullUrl);
-                if (uri.Port == ProxyPort || uri.Port == Port)
-                {
-                    session.host = $"{uri.Host}:{ Port }";
-                    AllSessions.Add(session);
-                }
-                //Console.WriteLine(session.url);
-            };
+            //// 收到服务端的回复
+            //FiddlerApplication.BeforeResponse += (session) =>
+            //{
+            //    try
+            //    {
+            //        FiddlerProcessor.OnResponse(session);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine(ex.Message);
+            //    }
+            //};
 
-            // 收到服务端的回复
-            FiddlerApplication.BeforeResponse += (session) =>
-            {
-                try
-                {
-                    FiddlerProcessor.OnResponse(session);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            };
+            //// 配置代理服务器
+            //Cert.SetRootCertificate();
+            //CONFIG.IgnoreServerCertErrors = true;
 
-            // 配置代理服务器
-            Cert.SetRootCertificate();
-            CONFIG.IgnoreServerCertErrors = true;
-
-            FiddlerApplication.Prefs.SetBoolPref("fiddler.network.streaming.abortifclientaborts", true);
-            FiddlerApplication.Startup(ProxyPort, FiddlerCoreStartupFlags.AllowRemoteClients | FiddlerCoreStartupFlags.DecryptSSL);
-            #endregion
+            //FiddlerApplication.Prefs.SetBoolPref("fiddler.network.streaming.abortifclientaborts", true);
+            //FiddlerApplication.Startup(ProxyPort, FiddlerCoreStartupFlags.AllowRemoteClients | FiddlerCoreStartupFlags.DecryptSSL);
+            //#endregion
             return true;
         }
 

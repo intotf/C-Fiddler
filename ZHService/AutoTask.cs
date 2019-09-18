@@ -14,13 +14,6 @@ namespace ZHService
     public static class AutoTask
     {
         /// <summary>
-        /// 创建请求客户端
-        /// </summary>
-        private static ISchoolsTask client = HttpApiClient.Create<ISchoolsTask>();
-
-
-
-        /// <summary>
         /// 根据Id 自动完成任务
         /// </summary>
         /// <param name="uid"></param>
@@ -43,18 +36,40 @@ namespace ZHService
 
 
         /// <summary>
+        /// 一次自动全刷
+        /// </summary>
+        /// <returns></returns>
+        public static async Task RunAll()
+        {
+            await Task.Delay(0);
+            //var users = UserApi.Users.ToArray();
+            //var students = Students.GetAllStudents();
+            //foreach (var item in users)
+            //{
+            //    foreach (var student in students)
+            //    {
+            //        await GetSchoolListByAsycn(item, student);
+            //        await DoTaskAsync(item, student);
+            //    }
+            //}
+        }
+
+
+        /// <summary>
         /// 点赞任务,刷新前5条进行点赞
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
         async static Task GetSchoolListByAsycn(User user, Students student)
         {
+            var client = HttpApi.Resolve<ISchoolsTask>();
             var requestSchool = new RequestSchool(user.Id, student.ClassId, student.StudentId);
             var schoolList = await client.GetSchoolListByAsync(requestSchool);
 
-            foreach (var item in schoolList.body.feeds.Where(item => item.studentId != "" && item.userId != "").Take(5))
+            var news = schoolList.body.feeds.Where(item => item.userId != "").Take(5).ToArray();
+            foreach (var item in news)
             {
-                var likeData = new RequestLike(user.Id);
+                var likeData = new RequestLike(user.Id, student.childId);
                 likeData.contentId = item.contentId;
                 likeData.contentUserId = item.userId;
                 likeData.studentId = item.studentId;
@@ -99,6 +114,7 @@ namespace ZHService
         /// <returns></returns>
         async static Task DoTaskByTypeAsync(TaskType type, User user, Students student, int count = 1)
         {
+            var client = HttpApi.Resolve<ISchoolsTask>();
             //完成指定类型任务
             var data = new RequestTask(type, user.Id, student);
             for (var i = 0; i < count; i++)

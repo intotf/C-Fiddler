@@ -15,15 +15,16 @@ namespace ZT.Model
         /// 初始化用户信息
         /// </summary>
         /// <param name="uid"></param>
-        public RequestLike(string uid)
+        public RequestLike(string uid, string childId)
         {
             this.userId = uid;
+            this.childId = childId;
         }
 
         /// <summary>
-        /// 子类Id
+        /// 孩子Id
         /// </summary>
-        public string childId { get; set; } = "7e2ed4c0da316059c7c9";
+        public string childId { get; set; }
         /// <summary>
         /// 内容id
         /// </summary>

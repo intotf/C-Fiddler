@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C634C974-66F4-424E-852B-DA67AF72C50A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZT.Model</RootNamespace>
-    <AssemblyName>ZT.Model</AssemblyName>
+    <ProjectGuid>{D680CB34-D329-46AD-B87B-02959D3A488C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ZTServer2._0</RootNamespace>
+    <AssemblyName>ZTServer2.0</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,7 +33,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,29 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Request\IRequest.cs" />
-    <Compile Include="Request\RequestSchool.cs" />
-    <Compile Include="Request\RequestShear.cs" />
-    <Compile Include="Request\RequestTask.cs" />
-    <Compile Include="Request\RequstBase.cs" />
-    <Compile Include="Request\TaskType.cs" />
-    <Compile Include="Result\ResultAd.cs" />
-    <Compile Include="Result\ResultInfo.cs" />
+    <Compile Include="Model\Class1.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request\RequestHeaders.cs" />
-    <Compile Include="Request\RequestLike.cs" />
-    <Compile Include="ResultRest.cs" />
-    <Compile Include="Result\ResultLike.cs" />
-    <Compile Include="Result\ResultSchool.cs" />
-    <Compile Include="Result\ResultTask.cs" />
-    <Compile Include="Result\ResultUser.cs" />
-    <Compile Include="Students.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ZT.Common\ZT.Common.csproj">
-      <Project>{cdad3106-a71b-415e-b878-4e0f9b601334}</Project>
-      <Name>ZT.Common</Name>
-    </ProjectReference>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
